@@ -1,0 +1,26 @@
+services:
+  web:
+    build: .
+    ports:
+      - 8080:80
+    volumes:
+      - web_data:/usr/share/nginx/html
+    networks:
+      - test_net
+  db:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test_db
+    volumes:
+      - db_data:/usr/share/nginx/html
+    networks:
+      - test_net
+volumes:
+  db_data:
+  web_data:
+networks:
+  test_net:
+    driver: bridge
